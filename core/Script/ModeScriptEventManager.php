@@ -23,7 +23,8 @@ use Maniaplanet\DedicatedServer\Xmlrpc\GameModeException;
 class ModeScriptEventManager implements UsageInformationAble {
 	use UsageInformationTrait;
 
-	const API_VERSION = "2.5.0";
+//	const API_VERSION = "2.5.0";
+	const API_VERSION = "3.2.0";
 
 	/** @var ManiaControl $maniaControl */
 	private $maniaControl;
@@ -557,6 +558,18 @@ class ModeScriptEventManager implements UsageInformationAble {
 	}
 
 	/**
+	 * Request the current ui properties. This method will trigger the "Shootmania.UIProperties" callback.
+	 *
+	 * @api
+	 * @return \ManiaControl\Script\InvokeScriptCallback You can directly set a callable on it via setCallable()
+	 */
+	public function getTrackmania2020UIProperties() {
+		$responseId = $this->generateResponseId();
+		$this->triggerModeScriptEvent('Common.UIModules.GetProperties', array($responseId));
+		return new InvokeScriptCallback($this->maniaControl, Callbacks::TM2020_UIPROPERTIES, $responseId);
+	}
+
+	/**
 	 * Update the ui properties.
 	 *
 	 * @api
@@ -566,6 +579,30 @@ class ModeScriptEventManager implements UsageInformationAble {
 	public function setTrackmaniaUIProperties($properties) {
 		$this->triggerModeScriptEvent('Trackmania.UI.SetProperties', array($properties));
 		return $this->getTrackmaniaUIProperties();
+	}
+
+	/**
+	 * Update the ui properties.
+	 *
+	 * @api
+	 * @param string Json-Encoded Xml UI Property String
+	 * @return \ManiaControl\Script\InvokeScriptCallback You can directly set a callable on it via setCallable() to get the updated Properties
+	 */
+	public function setTrackmania2020UIProperties($properties) {
+		$this->triggerModeScriptEvent('Common.UIModules.SetProperties', array($properties));
+		return $this->getTrackmania2020UIProperties();
+	}
+
+	/**
+	 * Update the ui properties.
+	 *
+	 * @api
+	 * @param string Json-Encoded Xml UI Property String
+	 * @return \ManiaControl\Script\InvokeScriptCallback You can directly set a callable on it via setCallable() to get the updated Properties
+	 */
+	public function resetTrackmania2020UIProperties($properties) {
+		$this->triggerModeScriptEvent('Common.UIModules.ResetProperties', array($properties));
+		return $this->getTrackmania2020UIProperties();
 	}
 
 	/**

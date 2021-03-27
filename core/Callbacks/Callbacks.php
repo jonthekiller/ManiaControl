@@ -152,6 +152,7 @@ interface Callbacks {
 	const TM_WARMUPENDROUND    = "Trackmania.WarmUp.EndRound";
 	const TM_WARMUPEND         = "Trackmania.WarmUp.End";
 	const TM_UIPROPERTIES      = 'Trackmania.UI.Properties';
+	const TM2020_UIPROPERTIES      = 'Common.UIModules.Properties';
 	const TM_POINTSREPARTITION = 'Trackmania.PointsRepartition';
 
 	//ManiaControl Specific TM Callbacks
